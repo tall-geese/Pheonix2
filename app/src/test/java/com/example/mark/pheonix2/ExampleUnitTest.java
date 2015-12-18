@@ -11,13 +11,7 @@ import java.lang.Override;
  */
 public class ExampleUnitTest extends InstrumentationTestCase{
 
-    //and change here
-    // add a line of text here for the 4th commit
 
-    //also adding something here for 4th commit
-    // changed to second commit for the 1stAlternateBranch
-    // adding a random commit after merge
-    // comment after deleting origin/1stAlternateBranch
 
 
 
