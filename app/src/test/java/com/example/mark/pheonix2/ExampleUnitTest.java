@@ -16,6 +16,7 @@ public class ExampleUnitTest extends InstrumentationTestCase{
 
     //also adding something here for 4th commit
     // changed to second commit for the 1stAlternateBranch
+    // adding a random commit after merge
 
 
 
