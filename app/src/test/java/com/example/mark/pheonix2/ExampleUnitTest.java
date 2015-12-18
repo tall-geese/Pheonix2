@@ -11,7 +11,7 @@ import java.lang.Override;
  */
 public class ExampleUnitTest extends InstrumentationTestCase{
 
-
+    // first commit of the master branch (Intention of merge conflicts)
 
 
 
