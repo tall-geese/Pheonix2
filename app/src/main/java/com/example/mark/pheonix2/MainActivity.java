@@ -1,5 +1,7 @@
 package com.example.mark.pheonix2;
 
+import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,12 +10,24 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 
+import java.util.concurrent.Executor;
+
 public class MainActivity extends AppCompatActivity {
 
-    //here i anm making a chnage
+    // Declare method-usable variables
+    private String cardName;
+    private String cardType;
+    private String cardSubtypes;
+    private String cardText;
+    private String cardFlavorText;
+    private int multiverseID;
+    private String gathererURL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,15 +36,51 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // declare the views we'll be using
+        TextView cardNameView = (TextView) findViewById(R.id.CardName);
+        TextView cardTypeView = (TextView) findViewById(R.id.Types);
+        TextView cardSubtypesView = (TextView) findViewById(R.id.Subtypes);
+        TextView cardTextView = (TextView) findViewById(R.id.CardText);
+        TextView cardFlavorTextView = (TextView) findViewById(R.id.FlavorText);
+        final EditText multiverseIDEditText = (EditText) findViewById(R.id.MultiverseID);
+
+        // get the url (without ID) from our string resources
+        gathererURL = (String) this.getResources().getString(R.string.url);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                // check if the editText is empty first
+                if(multiverseIDEditText.getText().toString().matches("")){
+                    Toast.makeText(MainActivity.this,"You Didn't Enter an ID", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // if it isn't then execute our AsyncTask with the full url param
+                else{
+                    String link = multiverseIDEditText.getText().toString().trim();
+                    new JSoupAsync().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, gathererURL + link);
+                }
             }
         });
+    }
 
+    private class JSoupAsync extends AsyncTask<String, Void, Void>{
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            // Todo: add code here for testing an internet connection
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+            return null;
+        }
     }
 
     @Override

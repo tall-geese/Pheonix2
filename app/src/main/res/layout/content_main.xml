@@ -9,15 +9,52 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main" tools:context=".MainActivity">
 
-    <TextView android:text="Hello World!" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/MultiverseID"
+        android:hint="Multiverse ID"/>
 
-    <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+    <TextView
+        android:id="@+id/CardName"
+        android:text="Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:indeterminate="true"
-        app:mpb_progressStyle="horizontal"
-        style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal" />
+        android:layout_below="@id/MultiverseID"
+        android:layout_marginTop="10dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Types"
+        android:text="Types"
+        android:layout_below="@id/CardName"
+        android:layout_marginTop="10dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Subtypes"
+        android:text="Subtypes"
+        android:layout_below="@id/CardName"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/CardText"
+        android:layout_below="@id/Types"
+        android:text="Card Text"
+        android:layout_marginTop="20dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/FlavorText"
+        android:layout_marginTop="20dp"
+        android:text="Flavor Text"
+        android:layout_below="@id/CardText"/>
+
+
 
 
 </RelativeLayout>
