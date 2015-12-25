@@ -16,17 +16,22 @@ import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
 import java.util.concurrent.Executor;
 
 public class MainActivity extends AppCompatActivity {
 
     // Declare method-usable variables
-    private String cardName;
-    private String cardType;
-    private String cardSubtypes;
-    private String cardText;
-    private String cardFlavorText;
-    private int multiverseID;
+    private TextView cardNameView;
+    private TextView cardTypeView;
+    private TextView cardSubtypesView;
+    private TextView cardTextView;
+    private TextView cardFlavorTextView;
+    private EditText multiverseIDEditText;
     private String gathererURL;
 
     @Override
@@ -37,12 +42,12 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // declare the views we'll be using
-        TextView cardNameView = (TextView) findViewById(R.id.CardName);
-        TextView cardTypeView = (TextView) findViewById(R.id.Types);
-        TextView cardSubtypesView = (TextView) findViewById(R.id.Subtypes);
-        TextView cardTextView = (TextView) findViewById(R.id.CardText);
-        TextView cardFlavorTextView = (TextView) findViewById(R.id.FlavorText);
-        final EditText multiverseIDEditText = (EditText) findViewById(R.id.MultiverseID);
+        cardNameView = (TextView) findViewById(R.id.CardName);
+        cardTypeView = (TextView) findViewById(R.id.Types);
+        cardSubtypesView = (TextView) findViewById(R.id.Subtypes);
+        cardTextView = (TextView) findViewById(R.id.CardText);
+        cardFlavorTextView = (TextView) findViewById(R.id.FlavorText);
+        multiverseIDEditText = (EditText) findViewById(R.id.MultiverseID);
 
         // get the url (without ID) from our string resources
         gathererURL = (String) this.getResources().getString(R.string.url);
@@ -65,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private class JSoupAsync extends AsyncTask<String, Void, Void>{
+    private class JSoupAsync extends AsyncTask<String, Void, String>{
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -73,12 +78,23 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
+        protected void onPostExecute(String linkText) {
+            ;
         }
 
         @Override
-        protected Void doInBackground(String... params) {
+        protected String doInBackground(String... params) {
+            // Todo: get the background process finished, just for the name for now.
+            try {
+                Document doc = Jsoup.connect(params[0]).get();
+                Elements cardName = doc.select("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_nameRow.value");
+                String linkText = cardName.text();
+                return linkText;
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return null;
         }
     }
