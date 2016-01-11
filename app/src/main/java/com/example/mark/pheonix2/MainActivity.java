@@ -1,38 +1,34 @@
 package com.example.mark.pheonix2;
 
-import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.astuetz.PagerSlidingTabStrip;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
-import java.io.IOException;
-import java.util.concurrent.Executor;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     // Declare method-usable variables
     private TextView cardNameView;
     private TextView cardTypeView;
-    private TextView cardSubtypesView;
-    private TextView cardTextView;
     private TextView cardFlavorTextView;
     private EditText multiverseIDEditText;
-    private String gathererURL;
+    private LinearLayout cardTextLayout;
+    private LinearLayout cardCMCLayout;
+
+    private String AppTag = "AppTag";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +39,11 @@ public class MainActivity extends AppCompatActivity {
 
         // declare the views we'll be using
         cardNameView = (TextView) findViewById(R.id.CardName);
-        cardTypeView = (TextView) findViewById(R.id.Types);
-        cardSubtypesView = (TextView) findViewById(R.id.Subtypes);
-        cardTextView = (TextView) findViewById(R.id.CardText);
+        cardTypeView = (TextView) findViewById(R.id.CardTypes);
         cardFlavorTextView = (TextView) findViewById(R.id.FlavorText);
         multiverseIDEditText = (EditText) findViewById(R.id.MultiverseID);
-
-        // get the url (without ID) from our string resources
-        gathererURL = (String) this.getResources().getString(R.string.url);
+        cardTextLayout = (LinearLayout) findViewById(R.id.cardTextLayout);
+        cardCMCLayout = (LinearLayout) findViewById(R.id.cardCMCLayout);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -64,13 +57,14 @@ public class MainActivity extends AppCompatActivity {
                 // if it isn't then execute our AsyncTask with the full url param
                 else{
                     String link = multiverseIDEditText.getText().toString().trim();
-                    new JSoupAsync().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, gathererURL + link);
+                    new JSoupAsync().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, link);
                 }
             }
         });
     }
 
-    private class JSoupAsync extends AsyncTask<String, Void, String>{
+    private class JSoupAsync extends AsyncTask<String, Void, Bundle>{
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -78,24 +72,48 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String linkText) {
-            ;
+        protected void onPostExecute(Bundle cardBundle) {
+            cardNameView.setText(cardBundle.getString("name", "Name"));
+            cardTypeView.setText(cardBundle.getString("types", "Types"));
+            cardFlavorTextView.setText(cardBundle.getString("flavor", "Flavor"));
+
+            //TODO: find a way to incorporate these two view designs into one, so we're not repeating the same code twice
+            cardCMCLayout.removeAllViews();
+            TextView cmcView = new TextView(MainActivity.this);
+            cmcView.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            cmcView.setPadding(0, 0, 0, 5);
+            cmcView.setText(Html.fromHtml(cardBundle.getString("CMC"), new SymbolGetter(MainActivity.this), new TagGetter()));
+            cardCMCLayout.addView(cmcView);
+
+            List<String> cardTextList = cardBundle.getStringArrayList("arrayList");
+            cardTextLayout.removeAllViews();
+            for (String s : cardTextList){
+                TextView view = new TextView(MainActivity.this);
+                view.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                view.setPadding(0, 0, 0, 5);
+                view.setText(Html.fromHtml(s, new SymbolGetter(MainActivity.this), new TagGetter()));
+                cardTextLayout.addView(view);
+            }
         }
 
         @Override
-        protected String doInBackground(String... params) {
-            // Todo: get the background process finished, just for the name for now.
-            try {
-                Document doc = Jsoup.connect(params[0]).get();
-                Elements cardName = doc.select("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_nameRow.value");
-                String linkText = cardName.text();
-                return linkText;
+        protected Bundle doInBackground(String... params) {
+            CardScraper scraper = new CardScraper(params[0], MainActivity.this);
 
+            Bundle cardBundle = new Bundle();
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
+            cardBundle.putString("name", scraper.getcardName());
+            cardBundle.putString("types", scraper.getCardTypes());
+            cardBundle.putString("flavor", scraper.getCardFlavor());
+            cardBundle.putString("CMC", scraper.getCardCMC());
+            cardBundle.putStringArrayList("arrayList", scraper.getCardTextArray());
+
+            return cardBundle;
+
         }
     }
 
