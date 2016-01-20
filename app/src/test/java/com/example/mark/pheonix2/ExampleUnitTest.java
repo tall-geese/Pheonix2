@@ -11,15 +11,6 @@ import java.lang.Override;
  */
 public class ExampleUnitTest extends InstrumentationTestCase{
 
-    // first commit of the master branch (Intention of merge conflicts)
-    // This is the first commit of the SplitBranch
-//     one more for the road
-//     deleted split branch
-//     testing amending a commit
-//     something happening?
-
-
-
     // Todo: Create more tests here
     @Override
     protected void setUp() throws Exception{
