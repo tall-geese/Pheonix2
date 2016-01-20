@@ -24,11 +24,11 @@ public class SymbolGetter implements Html.ImageGetter {
 
             // Zero
             case ("/Handlers/Image.ashx?size=small&name=0&type=symbol"):
-                drawable = context.getResources().getDrawable(R.drawable.zerosmall);
+                drawable = context.getResources().getDrawable(R.drawable.zerosymbolsmall);
                 drawable.setBounds(0,0,drawable.getIntrinsicWidth(),drawable.getIntrinsicHeight());
                 return drawable;
             case ("/Handlers/Image.ashx?size=medium&name=0&type=symbol"):
-                drawable = context.getResources().getDrawable(R.drawable.zeromedium);
+                drawable = context.getResources().getDrawable(R.drawable.zerosymbolmedium);
                 drawable.setBounds(0,0,drawable.getIntrinsicWidth(),drawable.getIntrinsicHeight());
                 return drawable;
             case ("/Handlers/Image.ashx?size=large&name=0&type=symbol"):

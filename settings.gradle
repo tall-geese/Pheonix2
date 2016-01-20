@@ -1,1 +1,1 @@
-include ':app', ':libs:PagerSlidingTabStrip', ':MaterialProgressBar'
+include ':app'

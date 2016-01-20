@@ -6,7 +6,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -77,32 +75,21 @@ public class MainActivity extends AppCompatActivity {
             cardTypeView.setText(cardBundle.getString("types", "Types"));
             cardFlavorTextView.setText(cardBundle.getString("flavor", "Flavor"));
 
-            //TODO: find a way to incorporate these two view designs into one, so we're not repeating the same code twice
             cardCMCLayout.removeAllViews();
-            TextView cmcView = new TextView(MainActivity.this);
-            cmcView.setLayoutParams(new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT));
-            cmcView.setPadding(0, 0, 0, 5);
-            cmcView.setText(Html.fromHtml(cardBundle.getString("CMC"), new SymbolGetter(MainActivity.this), new TagGetter()));
+            TextView cmcView = viewMaker(cardBundle.getString("CMC"));
             cardCMCLayout.addView(cmcView);
 
             List<String> cardTextList = cardBundle.getStringArrayList("arrayList");
             cardTextLayout.removeAllViews();
             for (String s : cardTextList){
-                TextView view = new TextView(MainActivity.this);
-                view.setLayoutParams(new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT));
-                view.setPadding(0, 0, 0, 5);
-                view.setText(Html.fromHtml(s, new SymbolGetter(MainActivity.this), new TagGetter()));
+                TextView view = viewMaker(s);
                 cardTextLayout.addView(view);
             }
         }
 
         @Override
         protected Bundle doInBackground(String... params) {
-            CardScraper scraper = new CardScraper(params[0], MainActivity.this);
+            CardWebScraper scraper = new CardWebScraper(params[0], MainActivity.this);
 
             Bundle cardBundle = new Bundle();
 
@@ -114,6 +101,17 @@ public class MainActivity extends AppCompatActivity {
 
             return cardBundle;
 
+        }
+
+        private TextView viewMaker (String html){
+            // TODO: so far we are using the same padding for everything that we got fromcardText, we may want to update this in the future.
+            TextView view = new TextView(MainActivity.this);
+            view.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            view.setPadding(0, 0, 0, 5);
+            view.setText(Html.fromHtml(html, new SymbolGetter(MainActivity.this), new TagGetter()));
+            return view;
         }
     }
 
