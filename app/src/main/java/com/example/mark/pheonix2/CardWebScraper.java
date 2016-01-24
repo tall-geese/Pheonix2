@@ -6,12 +6,15 @@ package com.example.mark.pheonix2;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -44,23 +47,32 @@ public class CardWebScraper {
 
 
     public CardWebScraper(String multiverseID, Context ctx){
-        collectiveNodesString = "";
+        // call init methods on ctx so unit test doesn't break
         context = ctx;
+        collectiveNodesString = "";
 
-        gathererURL = (String) context.getResources().getString(R.string.url) + multiverseID;
-        cardNameQuery = (String) context.getResources().getString(R.string.cardNameQuery);
-        cardTypesQuery = (String) context.getResources().getString(R.string.cardTypesQuery);
-        cardFlavorQuery = (String) context.getResources().getString(R.string.cardFlavorQuery);
-        cardTextQuery = (String) context.getResources().getString(R.string.cardTextQuery);
-        cardCMCQuery = (String) context.getResources().getString(R.string.cardCMCQuery);
+        gathererURL = (String) ctx.getResources().getString(R.string.url) + multiverseID;
+        cardNameQuery = (String) ctx.getResources().getString(R.string.cardNameQuery);
+        cardTypesQuery = (String) ctx.getResources().getString(R.string.cardTypesQuery);
+        cardFlavorQuery = (String) ctx.getResources().getString(R.string.cardFlavorQuery);
+        cardTextQuery = (String) ctx.getResources().getString(R.string.cardTextQuery);
+        cardCMCQuery = (String) ctx.getResources().getString(R.string.cardCMCQuery);
 
-        try {
-            document = Jsoup.connect(gathererURL).get();
-            setcardName();;
-            setCardTypes();
-            setCardFlavor();
-        } catch (IOException e){
-            e.printStackTrace();
+        if (isConnectedToNetwork(ctx)) {
+
+            try {
+                document = Jsoup.connect(gathererURL).get();
+                setcardName();
+                setCardTypes();
+                setCardFlavor();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+            // make a toast if not connected to a network
+            //TODO: replace hardcoded strgin with resID
+            Toast.makeText(ctx, R.string.networkConnectionFailed, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -131,5 +143,12 @@ public class CardWebScraper {
         else if(!node.toString().equals("")) {
             collectiveNodesString += node.toString();
         }
+    }
+
+    public boolean isConnectedToNetwork(Context ctx){
+        ConnectivityManager cm = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        return isConnected;
     }
 }

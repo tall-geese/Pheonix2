@@ -7,4 +7,5 @@
     <string name="cardFlavorQuery">#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_FlavorText.value > .flavortextbox</string>
     <string name="cardTextQuery">#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_textRow.row > .value > .cardtextbox</string>
     <string name="cardCMCQuery">#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_manaRow.row.manaRow > .value</string>
+    <string name="networkConnectionFailed">Not connected to a network</string>
 </resources>

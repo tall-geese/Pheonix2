@@ -19,7 +19,7 @@ public class SymbolGetter implements Html.ImageGetter {
     public Drawable getDrawable(String source) {
         Drawable drawable;
 
-        //TODO: replace our raster images with vector ones, and have a case for each possible image
+        //TODO: possibly elimintate all of the "large" cases to save time when doing a switch
         switch (source){
 
             // Zero
