@@ -40,6 +40,7 @@ public class ExampleUnitTest extends InstrumentationTestCase{
 
     @Test
     public void testNetworkConnection(){
+        //TODO: update this test so it doesn't hit a runtimexception for a successful test
         // check that the isConnectedToNetwork returns null and our contstructor tries to make
         // a toast instead of doing web activities.
         when(mockContext.getResources()).thenReturn(mockResources);

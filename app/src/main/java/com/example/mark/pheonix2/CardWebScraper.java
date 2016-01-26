@@ -90,6 +90,7 @@ public class CardWebScraper {
         Elements elements = document.select(cardTypesQuery);
         String elementText = elements.text();
         cardTypes = elementText;
+        // new tabspager branch
     }
 
     public String getCardTypes(){
