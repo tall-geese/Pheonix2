@@ -16,7 +16,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug{
-            applicationIdSuffix ".debug"
+            // applicationIdSuffix ".debug"
         }
     }
     productFlavors {
@@ -41,5 +41,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile files('libs/jsoup-1.8.3.jar')
-    compile 'it.neokree:MaterialTabs:0.11'
+    compile 'io.karim:materialtabs:2.0.3'
 }
