@@ -48,6 +48,7 @@ public class CardWebScraper {
 
     public CardWebScraper(String multiverseID, Context ctx){
         // call init methods on ctx so unit test doesn't break
+        //TODO: runtime permissions for calling wizards of the coast
         context = ctx;
         collectiveNodesString = "";
 
@@ -90,7 +91,6 @@ public class CardWebScraper {
         Elements elements = document.select(cardTypesQuery);
         String elementText = elements.text();
         cardTypes = elementText;
-        // new tabspager branch
     }
 
     public String getCardTypes(){
@@ -98,6 +98,7 @@ public class CardWebScraper {
     }
 
     public void setCardFlavor(){
+        //TODO: cards that have broken up flavor text, will this still work?
         Elements elements = document.select(cardFlavorQuery);
         String elementText = elements.text();
         cardFlavor = elementText;
