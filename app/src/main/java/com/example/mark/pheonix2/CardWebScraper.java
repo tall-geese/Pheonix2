@@ -29,6 +29,10 @@ import java.util.List;
 
 
 public class CardWebScraper {
+    /*
+     * eventually we will have to redo this class so that is can scrape gatherer
+     * based off of a name and not a multiverseID
+     */
 
     Document document;
     Context context;
@@ -59,7 +63,7 @@ public class CardWebScraper {
         cardTextQuery = (String) ctx.getResources().getString(R.string.cardTextQuery);
         cardCMCQuery = (String) ctx.getResources().getString(R.string.cardCMCQuery);
 
-        if (isConnectedToNetwork(ctx)) {
+        if (CardWebScraper.isConnectedToNetwork(ctx)) {
 
             try {
                 document = Jsoup.connect(gathererURL).get();
@@ -71,9 +75,7 @@ public class CardWebScraper {
             }
         }
         else{
-            // make a toast if not connected to a network
-            //TODO: replace hardcoded strgin with resID
-            Toast.makeText(ctx, R.string.networkConnectionFailed, Toast.LENGTH_LONG).show();
+            CardWebScraper.toastErrorLog(ctx, ctx.getResources().getString(R.string.networkConnectionFailed));
         }
     }
 
@@ -147,10 +149,14 @@ public class CardWebScraper {
         }
     }
 
-    public boolean isConnectedToNetwork(Context ctx){
+    public static boolean isConnectedToNetwork(Context ctx){
         ConnectivityManager cm = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
         return isConnected;
+    }
+
+    public static void toastErrorLog(Context ctx, String errorMsg){
+        Toast.makeText(ctx, errorMsg, Toast.LENGTH_LONG).show();
     }
 }
