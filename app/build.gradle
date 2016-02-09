@@ -42,4 +42,5 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile files('libs/jsoup-1.8.3.jar')
     compile 'io.karim:materialtabs:2.0.3'
+    compile files('libs/java-string-similarity-0.13.jar')
 }
