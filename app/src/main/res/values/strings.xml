@@ -2,6 +2,7 @@
     <string name="app_name">Pheonix2</string>
     <string name="action_settings">Settings</string>
 
+    <!--Gatherer Scraper values -->
     <string name="url">http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=</string>
     <string name="cardNameQuery">#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_nameRow > .value</string>
     <string name="cardTypesQuery">#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_typeRow.row > .value</string>
@@ -9,8 +10,7 @@
     <string name="cardTextQuery">#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_textRow.row > .value > .cardtextbox</string>
     <string name="cardCMCQuery">#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_manaRow.row.manaRow > .value</string>
 
-    <string name="tappedoutNoUserURLQueryLeading">http://tappedout.net/mtg-decks/search/?q=</string>
-    <string name="tappedoutNoUserURLQueryTrailing">&amp;format=edh&amp;cards=&amp;general=&amp;price_0=&amp;price_1=&amp;o=date_updated&amp;d=desc&amp;submit=Filter+results</string>
-
     <string name="networkConnectionFailed">Not connected to a network</string>
+
+    <!--Tappedout Scraper values -->
 </resources>

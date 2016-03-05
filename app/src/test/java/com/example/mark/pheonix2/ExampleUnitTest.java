@@ -7,15 +7,17 @@ import android.test.InstrumentationTestCase;
 
 import java.lang.Exception;
 import java.lang.Override;
-import org.junit.Assert;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.*;
-import static org.mockito.Matchers.*;
+
 import android.content.Context;
+
+import com.example.mark.pheonix2.Scraper.GathererWebScraper;
 
 
 /**
@@ -23,6 +25,8 @@ import android.content.Context;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class ExampleUnitTest extends InstrumentationTestCase{
+
+    //TODO: get tests running properly again
 
     @Mock
     Context mockContext;
@@ -49,7 +53,7 @@ public class ExampleUnitTest extends InstrumentationTestCase{
         when(mockCM.getActiveNetworkInfo()).thenReturn(mockActiveNetwork);
         when(mockActiveNetwork.isConnectedOrConnecting()).thenReturn(false);
 
-        CardWebScraper scraper = new CardWebScraper("multiverseID", mockContext);
+        GathererWebScraper scraper = new GathererWebScraper("multiverseID", mockContext);
         assertNull(scraper.document);
     }
 

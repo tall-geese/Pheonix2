@@ -1,8 +1,10 @@
-package com.example.mark.pheonix2;
+package com.example.mark.pheonix2.Util;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.Html;
+
+import com.example.mark.pheonix2.R;
 
 /**
  * Created by Mark on 1/10/2016.

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="Tappedout UserName">
+        <CheckBoxPreference
+            android:title="Enable Use of TappedOut UserName"
+            android:summary="Only Search Decks Belonging to this User"
+            android:defaultValue="false"
+            android:key="user_name_toggle"/>
+        <EditTextPreference
+            android:title="Username"
+            android:summary="Enter Exactly as it Appears on Tappedout"
+            android:key="user_name"
+            android:dependency="user_name_toggle"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

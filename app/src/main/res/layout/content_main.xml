@@ -51,14 +51,20 @@
 
     </LinearLayout>
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/flavorLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp">
+        <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/FlavorText"
-        android:layout_marginTop="20dp"
         android:text="Flavor Text"
         android:layout_below="@id/cardTextLayout"
         android:textStyle="italic" />
+    </LinearLayout>
 
 
 

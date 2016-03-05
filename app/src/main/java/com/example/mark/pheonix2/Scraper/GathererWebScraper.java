@@ -1,34 +1,28 @@
-package com.example.mark.pheonix2;
+package com.example.mark.pheonix2.Scraper;
 
 /**
  * Created by Mark on 12/31/2015.
  */
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.text.Html;
-import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.mark.pheonix2.R;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
 import org.jsoup.nodes.Element;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class CardWebScraper {
+public class GathererWebScraper {
     /*
      * eventually we will have to redo this class so that is can scrape gatherer
      * based off of a name and not a multiverseID
@@ -37,6 +31,7 @@ public class CardWebScraper {
     Document document;
     Context context;
     String gathererURL;
+    //TODO: replace this concatenation with StringBuilder
     String collectiveNodesString;
     private String AppTag = "AppTag";
 
@@ -45,12 +40,12 @@ public class CardWebScraper {
     private String cardTypesQuery;
     private String cardTypes;
     private String cardFlavorQuery;
-    private String cardFlavor;
+    private ArrayList<String> cardFlavor;
     private String cardTextQuery;
     private String cardCMCQuery;
 
 
-    public CardWebScraper(String multiverseID, Context ctx){
+    public GathererWebScraper(String multiverseID, Context ctx){
         // call init methods on ctx so unit test doesn't break
         //TODO: runtime permissions for calling wizards of the coast
         context = ctx;
@@ -63,7 +58,7 @@ public class CardWebScraper {
         cardTextQuery = (String) ctx.getResources().getString(R.string.cardTextQuery);
         cardCMCQuery = (String) ctx.getResources().getString(R.string.cardCMCQuery);
 
-        if (CardWebScraper.isConnectedToNetwork(ctx)) {
+        if (GathererWebScraper.isConnectedToNetwork(ctx)) {
 
             try {
                 document = Jsoup.connect(gathererURL).get();
@@ -75,7 +70,7 @@ public class CardWebScraper {
             }
         }
         else{
-            CardWebScraper.toastErrorLog(ctx, ctx.getResources().getString(R.string.networkConnectionFailed));
+            GathererWebScraper.toastErrorLog(ctx, ctx.getResources().getString(R.string.networkConnectionFailed));
         }
     }
 
@@ -101,12 +96,14 @@ public class CardWebScraper {
 
     public void setCardFlavor(){
         //TODO: cards that have broken up flavor text, will this still work?
+        cardFlavor = new ArrayList<>();
         Elements elements = document.select(cardFlavorQuery);
-        String elementText = elements.text();
-        cardFlavor = elementText;
+        for (Element e: elements){
+            cardFlavor.add(e.text());
+        }
     }
 
-    public String getCardFlavor(){
+    public ArrayList<String> getCardFlavor(){
         return cardFlavor;
     }
 
@@ -150,6 +147,7 @@ public class CardWebScraper {
     }
 
     public static boolean isConnectedToNetwork(Context ctx){
+
         ConnectivityManager cm = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
