@@ -1,6 +1,7 @@
 package com.example.mark.pheonix2.Scraper;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -23,15 +24,18 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okio.Buffer;
 
 /**
  * Created by Mark on 2/7/2016.
  */
 public class TappedOutScraper {
     private Context ctx;
+    private Resources res;
 
     public TappedOutScraper(Context context) {
         ctx = context;
+        res = context.getResources();
     }
 
     public Bundle getDeckSearchResults(String searchQuery){
@@ -44,30 +48,23 @@ public class TappedOutScraper {
         try{
             OkHttpClient client = new OkHttpClient();
             client.followRedirects();
-            RequestBody body = new FormBody.Builder()
-                    .add("q", searchQuery)
-                    .add("format", "edh")
-                    .add("cards", "")
-                    .add("general", "")
-                    .add("price_0", "")
-                    .add("price_1", "")
-                    .add("o", "date_updated")
-                    .add("d", "desc")
-                    .add("submit", "Filter results")
+            Request request = new Request.Builder()
+                    .url(res.getString(R.string.tappedoutNoUser_urlLeading) + searchQuery + res.getString(R.string.tappedoutNoUser_urlTrailing))
                     .build();
 
-
-            Request request = new Request.Builder().url("http://tappedout.net/mtg-decks/search/").post(body).build();
             Response response = client.newCall(request).execute();
-
+            Log.d(NewMainActivity.AppTag, response.toString());
 
             Document doc = Jsoup.parse(response.body().string());
-            Elements elements = doc.select("h3.name > a[href]");
+            Elements elements = doc.select(res.getString(R.string.deckNames_NoUser));
 
             //TODO: magic number here
             for(int i = 0; i < elements.size() && i < 6; i++){
+                elements.get(i).setBaseUri(res.getString(R.string.tappedoutURI));
                 nameList.add(elements.get(i).text());
-                urlList.add(elements.get(i).attr("abs:href"));
+                urlList.add(elements.get(i).absUrl("href"));
+                Log.d(NewMainActivity.AppTag, urlList.get(i));
+                Log.d(NewMainActivity.AppTag, nameList.get(i));
             }
 
             data.putStringArrayList(DeckSearchFragment.DS_NAME, nameList);
@@ -93,13 +90,13 @@ public class TappedOutScraper {
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request request = new Request.Builder()
-                        .url("http://tappedout.net/users/" + userName + "/mtg-decks/")
+                        .url(res.getString(R.string.tappedoutUser_urlLeading) + userName + res.getString(R.string.tappedoutUser_urlTrailing))
                         .build();
                 Response response = client.newCall(request).execute();
                 if (response.isSuccessful()) {
 
                     Document doc = Jsoup.parse(response.body().string());
-                    Elements elements = doc.select("h4.name name-long > a[title]");
+                    Elements elements = doc.select(res.getString(R.string.deckNames_withUser));
                     // compare each word in the deck name to each word in the search query
                     // and if we find that they'll similar enough, add that wrapping element to arrayList to return
                     for (Element e : elements) {
@@ -112,7 +109,7 @@ public class TappedOutScraper {
                                 //TODO: define our magic number of results to return, currently just saying "4"
                                 if (distance < 2 && !nameList.contains(e.text()) && nameList.size() < 4) {
                                     nameList.add(e.text());
-                                    urlList.add(e.attr("abs:href"));
+                                    urlList.add(e.attr(res.getString(R.string.absolute_url)));
                                 }
                             }
                         }
@@ -138,7 +135,7 @@ public class TappedOutScraper {
 
         try{
             Document doc = Jsoup.connect(s).get();
-            Elements elements = doc.select(".board-col.col-md-4.col-sm-6 > h3[style]");
+            Elements elements = doc.select(res.getString(R.string.deck_categories));
             for (Element e : elements){
                 list.add(e.text());
             }
