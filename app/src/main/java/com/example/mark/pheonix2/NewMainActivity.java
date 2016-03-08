@@ -54,6 +54,7 @@ public class NewMainActivity extends AppCompatActivity implements AsyncScroller{
     private MaterialTabs mTabs;
 
     public static final String AppTag = "AppTag";
+    // completed mergin, doing new push
 
 
     @Override
