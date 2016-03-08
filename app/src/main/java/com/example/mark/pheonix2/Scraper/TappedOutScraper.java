@@ -53,7 +53,6 @@ public class TappedOutScraper {
                     .build();
 
             Response response = client.newCall(request).execute();
-            Log.d(NewMainActivity.AppTag, response.toString());
 
             Document doc = Jsoup.parse(response.body().string());
             Elements elements = doc.select(res.getString(R.string.deckNames_NoUser));
@@ -63,8 +62,6 @@ public class TappedOutScraper {
                 elements.get(i).setBaseUri(res.getString(R.string.tappedoutURI));
                 nameList.add(elements.get(i).text());
                 urlList.add(elements.get(i).absUrl("href"));
-                Log.d(NewMainActivity.AppTag, urlList.get(i));
-                Log.d(NewMainActivity.AppTag, nameList.get(i));
             }
 
             data.putStringArrayList(DeckSearchFragment.DS_NAME, nameList);

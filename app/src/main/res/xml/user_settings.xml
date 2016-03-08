@@ -1,17 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
-        android:title="Tappedout UserName">
+        android:title="Tappedout.net">
         <CheckBoxPreference
-            android:title="Enable Use of TappedOut UserName"
-            android:summary="Only Search Decks Belonging to this User"
-            android:defaultValue="false"
-            android:key="user_name_toggle"/>
+            android:title="Search My Decks Only"
+            android:summary="Enable to Get Decks Only From Your Account"
+            android:key="user_name_enabled" />
         <EditTextPreference
-            android:title="Username"
-            android:summary="Enter Exactly as it Appears on Tappedout"
-            android:key="user_name"
-            android:dependency="user_name_toggle"/>
+            android:title="UserName"
+            android:summary="Tappeodut.net UserName"
+            android:key="user_name_value"
+            android:defaultValue="false"
+            android:dependency="user_name_enabled"  />
+        <ListPreference
+            android:title="Automatic Sync Schedule"
+            android:summary="Select How Often the Decks Should Be Automatically Synced"
+            android:key="sync_schedule"
+            android:entries="@array/preferenceList"
+            android:entryValues="@array/preferenceList"/>
+        <EditTextPreference
+            android:title="Set Tutor Flags"
+            android:defaultValue="true"
+            android:summary="Automatically Set Flags for Cards That Need Search Criteria Defined"
+            android:key="tutor_flags_enabled"  />
     </PreferenceCategory>
-
+    <PreferenceCategory
+        android:title="System">
+        <EditTextPreference
+            android:title="Enable Sound Effects"
+            android:key="sound_effects_enabled"
+            android:defaultValue="true" />
+        <ListPreference
+            android:title="Connection Type"
+            android:summary="Set the Connection Type Used for Background Tasks"
+            android:key="connection_type"
+            android:entries="@array/connectionTypeList"
+            android:entryValues="@array/connectionTypeList"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Notifications">
+        <EditTextPreference
+            android:title="Deck Loaded Notification"
+            android:summary="Send Notification When a Deck Has Finished Loading"
+            android:key="deck_loaded_notification"
+            android:defaultValue="false"  />
+        <EditTextPreference
+            android:title="Deck Searching Notification"
+            android:summary="Send Notification When Starting A Background Task"
+            android:key="deck_searching_notification"
+            android:defaultValue="false"  />
+    </PreferenceCategory>
 </PreferenceScreen>

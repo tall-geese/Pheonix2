@@ -218,6 +218,7 @@ public class NewMainActivity extends AppCompatActivity implements AsyncScroller{
             ComponentName cn = new ComponentName(NewMainActivity.this, UserSettingsActivity.class);
             intent.setComponent(cn);
             startActivity(intent);
+            Log.d(NewMainActivity.AppTag, "made it to here");
 
             return true;
         }
