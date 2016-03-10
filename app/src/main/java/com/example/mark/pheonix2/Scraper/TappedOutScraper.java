@@ -39,9 +39,6 @@ public class TappedOutScraper {
         ArrayList<String> urlList = new ArrayList<>();
         Bundle data = new Bundle();
 
-        // comment here for testing push
-        //another then
-
         //TODO: test network connection
 
         try{
