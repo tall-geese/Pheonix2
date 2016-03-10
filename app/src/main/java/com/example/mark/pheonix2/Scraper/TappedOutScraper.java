@@ -40,6 +40,7 @@ public class TappedOutScraper {
         Bundle data = new Bundle();
 
         // comment here for testing push
+        //another then
 
         //TODO: test network connection
 
