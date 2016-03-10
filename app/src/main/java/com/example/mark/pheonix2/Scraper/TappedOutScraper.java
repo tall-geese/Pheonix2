@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import info.debatty.java.stringsimilarity.Levenshtein;
+import info.debatty.java.stringsimilarity.NormalizedLevenshtein;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -91,6 +92,8 @@ public class TappedOutScraper {
                         .build();
                 Response response = client.newCall(request).execute();
                 if (response.isSuccessful()) {
+                    //TODO erase logs here
+                    Log.d(NewMainActivity.AppTag, response.toString());
 
                     Document doc = Jsoup.parse(response.body().string());
                     Elements elements = doc.select(res.getString(R.string.deckNames_withUser));
@@ -99,12 +102,11 @@ public class TappedOutScraper {
                     for (Element e : elements) {
                         for (String s : e.text().split(" ")) {
                             for (String q : splitSearchQuery) {
-                                Levenshtein l = new Levenshtein();
-                                double distance = (s.length() < q.length()) ?
-                                        l.distance(s, q.substring(0, s.length() - 1)) :
-                                        l.distance(q, s.substring(0, q.length() - 1));
+                                NormalizedLevenshtein l = new NormalizedLevenshtein();
+                                double distance = l.distance(s.toUpperCase(), q.toUpperCase());
                                 //TODO: define our magic number of results to return, currently just saying "4"
-                                if (distance < 2 && !nameList.contains(e.text()) && nameList.size() < 4) {
+                                if (distance <= 0.5 && !nameList.contains(e.text()) && nameList.size() < 4) {
+                                    e.setBaseUri(res.getString(R.string.tappedoutURI) + "/" + userName + "/");
                                     nameList.add(e.text());
                                     urlList.add(e.attr(res.getString(R.string.absolute_url)));
                                 }

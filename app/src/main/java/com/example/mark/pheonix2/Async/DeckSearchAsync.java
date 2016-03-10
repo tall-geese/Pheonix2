@@ -1,8 +1,11 @@
 package com.example.mark.pheonix2.Async;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.example.mark.pheonix2.AsyncScroller;
 import com.example.mark.pheonix2.DeckSearchFragment;
@@ -33,8 +36,12 @@ public class DeckSearchAsync extends AsyncTask<String, Void, Bundle> {
     @Override
     protected Bundle doInBackground(String... params) {
         TappedOutScraper scraper = new TappedOutScraper(ctx);
-        Bundle data = (DeckSearchFragment.USER_DEFINED) ?
-                scraper.getDeckSearchResults(params[0], DeckSearchFragment.USER_DEFINED, DeckSearchFragment.USER_NAME)
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(ctx);
+
+        //TODO remove log here
+        Log.d(NewMainActivity.AppTag, "" + sharedPref.getBoolean("user_name_enabled", false) + sharedPref.getString("user_name_value", "NOUSER"));
+        Bundle data = (sharedPref.getBoolean("user_name_enabled", false)) ?
+                scraper.getDeckSearchResults(params[0], true, sharedPref.getString("user_name_value", "mikey"))
                 : scraper.getDeckSearchResults(params[0]);
 
         return data;
