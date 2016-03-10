@@ -3,7 +3,6 @@ package com.example.mark.pheonix2.Async;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.example.mark.pheonix2.AsyncScroller;
 import com.example.mark.pheonix2.DeckListFragment;
@@ -11,7 +10,6 @@ import com.example.mark.pheonix2.NewMainActivity;
 import com.example.mark.pheonix2.Scraper.TappedOutScraper;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Mark on 2/13/2016.

@@ -25,7 +25,7 @@
             android:name=".Util.UserSettingsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.mark.pheonix2.NewMainActivity"  />
+                android:value=".NewMainActivity"  />
 
         </activity>
     </application>

@@ -5,11 +5,9 @@ import android.preference.PreferenceFragment;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.mark.pheonix2.NewMainActivity;
 import com.example.mark.pheonix2.R;
 
 /**

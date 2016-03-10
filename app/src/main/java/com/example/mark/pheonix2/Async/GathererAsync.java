@@ -9,9 +9,6 @@ import com.example.mark.pheonix2.CardValuesFragment;
 import com.example.mark.pheonix2.Scraper.GathererWebScraper;
 import com.example.mark.pheonix2.NewMainActivity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by Mark on 2/11/2016.
  */

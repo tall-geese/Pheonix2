@@ -8,12 +8,8 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.example.mark.pheonix2.AsyncScroller;
-import com.example.mark.pheonix2.DeckSearchFragment;
 import com.example.mark.pheonix2.NewMainActivity;
 import com.example.mark.pheonix2.Scraper.TappedOutScraper;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Mark on 2/12/2016.
