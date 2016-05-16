@@ -1,15 +1,12 @@
-package com.example.mark.pheonix2.Async;
+package com.example.mark.pheonix2.Domain;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import com.example.mark.pheonix2.AsyncScroller;
-import com.example.mark.pheonix2.DeckListFragment;
-import com.example.mark.pheonix2.NewMainActivity;
-import com.example.mark.pheonix2.Scraper.TappedOutScraper;
-
-import java.util.ArrayList;
+import com.example.mark.pheonix2.Util.Interfaces.AsyncScroller;
+import com.example.mark.pheonix2.Presentation.NewMainActivity;
+import com.example.mark.pheonix2.Data.TappedOutScraper;
 
 /**
  * Created by Mark on 2/13/2016.
@@ -35,10 +32,7 @@ public class DeckListAsync extends AsyncTask<String, Void, Bundle>{
 
     @Override
     protected Bundle doInBackground(String... params) {
-        ArrayList<String> list = new TappedOutScraper(ctx).getDeckCategories(params[0]);
-        Bundle data = new Bundle();
-
-        data.putStringArrayList(DeckListFragment.DL_CATEGORIES, list);
+        Bundle data = new TappedOutScraper(ctx).getDeckCategories(params[0]);
         return data;
     }
 }

@@ -5,19 +5,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.test.InstrumentationTestCase;
 
-import java.lang.Exception;
-import java.lang.Override;
-
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Mockito.*;
-
 import android.content.Context;
-
-import com.example.mark.pheonix2.Scraper.GathererWebScraper;
 
 
 /**

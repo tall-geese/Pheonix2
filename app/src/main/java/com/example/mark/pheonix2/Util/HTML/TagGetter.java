@@ -1,4 +1,4 @@
-package com.example.mark.pheonix2.Util;
+package com.example.mark.pheonix2.Util.HTML;
 
 import android.text.Editable;
 import android.text.Html;

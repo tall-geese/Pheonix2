@@ -1,4 +1,4 @@
-package com.example.mark.pheonix2;
+package com.example.mark.pheonix2.Presentation.NewMainActivityFragments;
 
 import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
@@ -10,8 +10,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.mark.pheonix2.Util.SymbolGetter;
-import com.example.mark.pheonix2.Util.TagGetter;
+import com.example.mark.pheonix2.R;
+import com.example.mark.pheonix2.Util.HTML.SymbolGetter;
+import com.example.mark.pheonix2.Util.HTML.TagGetter;
 
 import java.util.List;
 
@@ -49,6 +50,7 @@ public class CardValuesFragment extends Fragment {
         cardName.setText(cardBundle.getString(CardValuesFragment.CV_NAME, "Name"));
         cardTypes.setText(cardBundle.getString(CardValuesFragment.CV_TYPE, "Types"));
 
+        //TODO: CMC is always just all one view, no reason for the extra memory use with a layout (maybe? test)
         cardCMCLayout.removeAllViews();
         TextView cmcView = viewMaker(cardBundle.getString(CardValuesFragment.CV_CMC), 0);
         cardCMCLayout.addView(cmcView);
@@ -60,6 +62,7 @@ public class CardValuesFragment extends Fragment {
             flavorLayout.addView(view);
         }
 
+        //TODO: can this handle mana symbold thrown into the middle of the text block? how to adjust?
         List<String> cardTextList = cardBundle.getStringArrayList(CardValuesFragment.CV_CARD_TEXT);
         cardTextLayout.removeAllViews();
         for (String s : cardTextList) {

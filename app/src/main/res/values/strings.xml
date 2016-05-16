@@ -2,7 +2,7 @@
     <string name="app_name">Pheonix2</string>
     <string name="action_settings">Settings</string>
 
-    <!--Gatherer Scraper values -->
+    <!--Gatherer Scraper Element select queries -->
     <string name="url">http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=</string>
     <string name="cardNameQuery">#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_nameRow > .value</string>
     <string name="cardTypesQuery">#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_typeRow.row > .value</string>
@@ -12,7 +12,7 @@
 
     <string name="networkConnectionFailed">Not connected to a network</string>
 
-    <!--Tappedout Scraper values -->
+    <!--Tappedout Scraper urls -->
     <string name="absolute_url">abs:href</string>
     <string name="tappedoutURI">http://tappedout.net</string>
     <string name="tappedoutUser_urlLeading">http://tappedout.net/users/</string>
@@ -20,8 +20,23 @@
     <string name="tappedoutNoUser_urlLeading">http://tappedout.net/mtg-decks/search/?q=</string>
     <string name="tappedoutNoUser_urlTrailing">&amp;format=edh&amp;cards=&amp;general=&amp;price_0=&amp;price_1=&amp;o=date_updated&amp;d=desc&amp;submit=Filter+results</string>
 
-    <!-- Element select queries-->
+    <!-- Tappedout Element select queries-->
     <string name="deckNames_NoUser">h3.name > a[href]</string>
     <string name="deckNames_withUser">h3.name > a[title]</string>
     <string name="deck_categories">.board-col.col-md-4.col-sm-6 > h3[style]</string>
+    <string name="deck_category_cards">.board-col.col-md-4.col-sm-6 > ul.boardlist</string>
+    <string name="card_name_attr">data-orig</string>
+
+    <!-- Settings Activity Keys, etc. -->
+    <string name="user_name_enabled">enabled</string>
+    <string name="user_name">user</string>
+    <string name="sync_schedule">sync</string>
+    <string name="tutor_flags_enabled">flagsEnabled</string>
+    <string name="sound_effects_enabled">soundEnabled</string>
+    <string name="connection_type">connection</string>
+    <string name="deck_loaded_notification">deckLoadedNotify</string>
+    <string name="deck_searching_notification">deckSearchNotify</string>
+
+    <!--Bundle keys, just using for tappedoutScraper for now -->
+    <string name="model_key">modelKey</string>
 </resources>

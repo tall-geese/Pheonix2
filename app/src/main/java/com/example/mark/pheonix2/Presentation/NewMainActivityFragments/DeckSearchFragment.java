@@ -1,4 +1,4 @@
-package com.example.mark.pheonix2;
+package com.example.mark.pheonix2.Presentation.NewMainActivityFragments;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -20,8 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 import android.os.Handler;
 
-import com.example.mark.pheonix2.Async.DeckListAsync;
-import com.example.mark.pheonix2.Async.DeckSearchAsync;
+import com.example.mark.pheonix2.Domain.DeckListAsync;
+import com.example.mark.pheonix2.Domain.DeckSearchAsync;
+import com.example.mark.pheonix2.Presentation.NewMainActivity;
+import com.example.mark.pheonix2.R;
 
 /**
  * Created by Mark on 2/1/2016.
@@ -31,11 +33,6 @@ public class DeckSearchFragment extends Fragment{
     private AutoCompleteAdapter adapter;
 
     public static final String DS_NAME = "name", DS_URL = "url";
-    private static final int DS_RESULTS_LIMIT = 5;
-
-    //TODO: move these values to our activity, to maintain
-    public static boolean USER_DEFINED = false;
-    public static String USER_NAME;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,7 +42,7 @@ public class DeckSearchFragment extends Fragment{
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         autoView = (AutoCompleteTextView) view.findViewById(R.id.autoText);
-        adapter = new AutoCompleteAdapter(getActivity(), R.layout.my_simple_list_item);
+        adapter = new AutoCompleteAdapter(getActivity(), R.layout.category_list_item);
         autoView.setAdapter(adapter);
         autoView.setOnItemClickListener(adapter);
         autoView.addTextChangedListener(adapter);
@@ -88,9 +85,9 @@ public class DeckSearchFragment extends Fragment{
         public View getView(int position, View convertView, ViewGroup parent) {
 
             if (convertView == null){
-                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.my_simple_list_item, parent, false);
+                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.card_list_item, parent, false);
             }
-            TextView textView = (TextView) convertView.findViewById(R.id.text1);
+            TextView textView = (TextView) convertView.findViewById(R.id.text3);
             textView.setText(results.get(position));
 
             return convertView;

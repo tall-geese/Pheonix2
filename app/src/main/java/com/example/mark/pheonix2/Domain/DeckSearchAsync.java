@@ -1,15 +1,16 @@
-package com.example.mark.pheonix2.Async;
+package com.example.mark.pheonix2.Domain;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
-import com.example.mark.pheonix2.AsyncScroller;
-import com.example.mark.pheonix2.NewMainActivity;
-import com.example.mark.pheonix2.Scraper.TappedOutScraper;
+import com.example.mark.pheonix2.Util.Interfaces.AsyncScroller;
+import com.example.mark.pheonix2.Presentation.NewMainActivity;
+import com.example.mark.pheonix2.R;
+import com.example.mark.pheonix2.Data.TappedOutScraper;
 
 /**
  * Created by Mark on 2/12/2016.
@@ -18,10 +19,12 @@ public class DeckSearchAsync extends AsyncTask<String, Void, Bundle> {
     //TODO: dont foget that AsyncTask (at least with frags, not sure on activity) should be weakly referenced
     Context ctx;
     AsyncScroller scroller;
+    Resources res;
 
     public DeckSearchAsync(Context context){
         ctx = context;
         scroller = (AsyncScroller) context;
+        res = context.getResources();
     }
 
     @Override
@@ -34,10 +37,9 @@ public class DeckSearchAsync extends AsyncTask<String, Void, Bundle> {
         TappedOutScraper scraper = new TappedOutScraper(ctx);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(ctx);
 
-        //TODO remove log here
-        Log.d(NewMainActivity.AppTag, "" + sharedPref.getBoolean("user_name_enabled", false) + sharedPref.getString("user_name_value", "NOUSER"));
-        Bundle data = (sharedPref.getBoolean("user_name_enabled", false)) ?
-                scraper.getDeckSearchResults(params[0], true, sharedPref.getString("user_name_value", "mikey"))
+        Bundle data = (sharedPref.getBoolean(res.getString(R.string.user_name_enabled), false)) ?
+                //TODO: replace "mikey" with something that makes more sense
+                scraper.getDeckSearchResults(params[0], true, sharedPref.getString(res.getString(R.string.user_name), "mikey"))
                 : scraper.getDeckSearchResults(params[0]);
 
         return data;

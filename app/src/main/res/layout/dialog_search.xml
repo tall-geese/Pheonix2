@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white" android:layout_marginTop="24dp">
+
+    <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
+        android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
+        android:theme="@style/AppTheme.AppBarOverlay" android:background="@color/colorPrimary" />    <!-- possibly redundant background color-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/deck_name_text_view"
+        android:text="Deck Name"
+        android:textSize="12sp"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/deck_name_edit_text"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:hint="deck name"
+        />
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/radio_group"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tappedout_radio_button"
+            android:checked="true"
+            android:text="Search Tappedout.net"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/profile_radio_button"
+            android:text="Search My Profile Only"/>
+    </RadioGroup>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/profile_name_text_view"
+        android:textSize="12sp"
+        android:text="Profile Name"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/profile_name_edit_text"
+        android:hint="profile name"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"/>
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/load_all_profile_checkbox"
+        android:text="Load All Decks From Profile"
+        android:checked="false"
+        android:layout_marginLeft="40dp"/>
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/update_deck_checkbox"
+        android:text="Update Deck If It Already Exists"
+        android:checked="true"/>
+
+
+
+</LinearLayout>

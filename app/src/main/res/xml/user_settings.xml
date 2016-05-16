@@ -5,35 +5,35 @@
         <CheckBoxPreference
             android:title="Search My Decks Only"
             android:summary="Enable to Get Decks Only From Your Account"
-            android:key="user_name_enabled" />
+            android:key="@string/user_name_enabled"
+            android:defaultValue="false"/>
         <EditTextPreference
             android:title="UserName"
             android:summary="Tappeodut.net UserName"
-            android:key="user_name_value"
-            android:defaultValue="false"
-            android:dependency="user_name_enabled"  />
+            android:key="@string/user_name"
+            android:dependency="@string/user_name_enabled"  />
         <ListPreference
             android:title="Automatic Sync Schedule"
             android:summary="Select How Often the Decks Should Be Automatically Synced"
-            android:key="sync_schedule"
+            android:key="@string/sync_schedule"
             android:entries="@array/preferenceList"
             android:entryValues="@array/preferenceList"/>
         <EditTextPreference
             android:title="Set Tutor Flags"
             android:defaultValue="true"
             android:summary="Automatically Set Flags for Cards That Need Search Criteria Defined"
-            android:key="tutor_flags_enabled"  />
+            android:key="@string/tutor_flags_enabled"  />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="System">
         <EditTextPreference
             android:title="Enable Sound Effects"
-            android:key="sound_effects_enabled"
+            android:key="@string/sound_effects_enabled"
             android:defaultValue="true" />
         <ListPreference
             android:title="Connection Type"
             android:summary="Set the Connection Type Used for Background Tasks"
-            android:key="connection_type"
+            android:key="@string/connection_type"
             android:entries="@array/connectionTypeList"
             android:entryValues="@array/connectionTypeList"/>
     </PreferenceCategory>
@@ -42,12 +42,12 @@
         <EditTextPreference
             android:title="Deck Loaded Notification"
             android:summary="Send Notification When a Deck Has Finished Loading"
-            android:key="deck_loaded_notification"
+            android:key="@string/deck_loaded_notification"
             android:defaultValue="false"  />
         <EditTextPreference
             android:title="Deck Searching Notification"
             android:summary="Send Notification When Starting A Background Task"
-            android:key="deck_searching_notification"
+            android:key="@string/deck_searching_notification"
             android:defaultValue="false"  />
     </PreferenceCategory>
 </PreferenceScreen>

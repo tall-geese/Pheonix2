@@ -1,4 +1,4 @@
-package com.example.mark.pheonix2.Util;
+package com.example.mark.pheonix2.Util.HTML;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -734,10 +734,10 @@ public class SymbolGetter implements Html.ImageGetter {
                 drawable = context.getResources().getDrawable(R.drawable.colorlessmedium);
                 drawable.setBounds(0,0,drawable.getIntrinsicWidth(),drawable.getIntrinsicHeight());
                 return drawable;
-            case ("/Handlers/Image.ashx?size=large&name=C&type=symbol"):
-                drawable = context.getResources().getDrawable(R.drawable.colorlesslarge);
-                drawable.setBounds(0,0,drawable.getIntrinsicWidth(),drawable.getIntrinsicHeight());
-                return drawable;
+//            case ("/Handlers/Image.ashx?size=large&name=C&type=symbol"):
+//                drawable = context.getResources().getDrawable(R.drawable.colorlesslarge);
+//                drawable.setBounds(0,0,drawable.getIntrinsicWidth(),drawable.getIntrinsicHeight());
+//                return drawable;
 
 
 

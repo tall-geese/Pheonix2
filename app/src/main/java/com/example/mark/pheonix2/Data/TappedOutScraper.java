@@ -1,13 +1,14 @@
-package com.example.mark.pheonix2.Scraper;
+package com.example.mark.pheonix2.Data;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.example.mark.pheonix2.DeckSearchFragment;
-import com.example.mark.pheonix2.NewMainActivity;
+import com.example.mark.pheonix2.Presentation.NewMainActivityFragments.DeckSearchFragment;
+import com.example.mark.pheonix2.Presentation.NewMainActivity;
 import com.example.mark.pheonix2.R;
+import com.example.mark.pheonix2.Util.Models.DeckListModel;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -39,7 +40,8 @@ public class TappedOutScraper {
         ArrayList<String> urlList = new ArrayList<>();
         Bundle data = new Bundle();
 
-        //TODO: test network connection
+        //TODO: test network connection - change this, shouldnt be present only in methods, should be in
+        // constructor like for gathererwebscraper
 
         try{
             OkHttpClient client = new OkHttpClient();
@@ -86,6 +88,7 @@ public class TappedOutScraper {
                         .url(res.getString(R.string.tappedoutUser_urlLeading) + userName + res.getString(R.string.tappedoutUser_urlTrailing))
                         .build();
                 Response response = client.newCall(request).execute();
+                //TODO: why do we check the status of the response here and not elsewhere
                 if (response.isSuccessful()) {
                     //TODO erase logs here
                     Log.d(NewMainActivity.AppTag, response.toString());
@@ -116,27 +119,51 @@ public class TappedOutScraper {
                     //TODO: put log here when testing succesful / unsucceful connections
                 }
 
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        //TODO: how to handle what happens when user isnt defined or when connection not successful, dont let it crash here
         return  data;
     }
 
-    public ArrayList<String> getDeckCategories (String s){
-        ArrayList<String> list = new ArrayList<>();
+    public Bundle getDeckCategories (String s){
+        //TODO: clean up this method, too many commented out pieces of earlier build
+        Bundle returnBundle = new Bundle();
+        ArrayList<DeckListModel> modelList = new ArrayList<>();
 
         try{
             Document doc = Jsoup.connect(s).get();
-            Elements elements = doc.select(res.getString(R.string.deck_categories));
-            for (Element e : elements){
-                list.add(e.text());
+
+            // scrape the list of cards belonging to each category
+            Elements cardElements = doc.select(ctx.getResources().getString(R.string.deck_category_cards));
+            String cardNameAttr = ctx.getResources().getString(R.string.card_name_attr);
+
+
+            for (Element e : cardElements){
+                if(e.hasText()){
+                    //get category header
+                    String categoryHeader = e.previousElementSibling().text();
+                    Elements f = e.children();
+                    // get all the childen elements which are the indvidual cards in this category
+                    for(int i = 0; i < f.size(); i++){
+                        DeckListModel model = new DeckListModel();
+                        model.setParentCatgeroy(categoryHeader);
+                        model.setName(f.get(i).getElementsByAttribute(cardNameAttr).attr(cardNameAttr));
+
+                        // if this is the first card, set it as the category header
+                        if(i == 0) {
+                            model.setIsCategoryHeader(1);
+                        }
+                        modelList.add(model);
+                    }
+                }
             }
         }catch (IOException e){
             e.printStackTrace();
         }
 
-        return list;
+        returnBundle.putParcelableArrayList(ctx.getResources().getString(R.string.model_key), modelList);
+        return returnBundle;
     }
 }

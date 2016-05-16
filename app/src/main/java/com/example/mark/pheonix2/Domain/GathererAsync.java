@@ -1,25 +1,23 @@
-package com.example.mark.pheonix2.Async;
+package com.example.mark.pheonix2.Domain;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import com.example.mark.pheonix2.AsyncScroller;
-import com.example.mark.pheonix2.CardValuesFragment;
-import com.example.mark.pheonix2.Scraper.GathererWebScraper;
-import com.example.mark.pheonix2.NewMainActivity;
+import com.example.mark.pheonix2.Util.Interfaces.AsyncScroller;
+import com.example.mark.pheonix2.Presentation.NewMainActivityFragments.CardValuesFragment;
+import com.example.mark.pheonix2.Data.GathererWebScraper;
+import com.example.mark.pheonix2.Presentation.NewMainActivity;
 
 /**
  * Created by Mark on 2/11/2016.
  */
 public class GathererAsync extends AsyncTask<String, Void, Bundle> {
     //TODO: dont foget that AsyncTask (at least with frags, not sure on activity) should be weakly referenced
-    private CardValuesFragment cvFragment;
     private Context ctx;
     private AsyncScroller scroller;
 
-    public GathererAsync(Context context, CardValuesFragment fragment){
-        cvFragment = fragment;
+    public GathererAsync(Context context){
         ctx = context;
         scroller = (AsyncScroller) context;
     }
@@ -41,6 +39,7 @@ public class GathererAsync extends AsyncTask<String, Void, Bundle> {
 
         Bundle cardBundle = new Bundle();
 
+        //TODO: come up with consistency here, shouldnt need 5 methods for that class for public use
         cardBundle.putString(CardValuesFragment.CV_NAME, scraper.getcardName());
         cardBundle.putString(CardValuesFragment.CV_TYPE, scraper.getCardTypes());
         cardBundle.putString(CardValuesFragment.CV_CMC, scraper.getCardCMC());

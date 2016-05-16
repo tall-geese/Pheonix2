@@ -1,8 +1,6 @@
-package com.example.mark.pheonix2;
+package com.example.mark.pheonix2.Util.Interfaces;
 
 import android.os.Bundle;
-
-import java.util.List;
 
 /**
  * Created by Mark on 2/13/2016.

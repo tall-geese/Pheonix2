@@ -1,4 +1,4 @@
-package com.example.mark.pheonix2.Scraper;
+package com.example.mark.pheonix2.Data;
 
 /**
  * Created by Mark on 12/31/2015.
@@ -19,7 +19,6 @@ import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class GathererWebScraper {
