@@ -41,7 +41,7 @@ public class TappedOutScraper {
         Bundle data = new Bundle();
 
         //TODO: test network connection - change this, shouldnt be present only in methods, should be in
-        // constructor like for gathererwebscraper
+        // constructor like for gathererwebscraper here
 
         try{
             OkHttpClient client = new OkHttpClient();
